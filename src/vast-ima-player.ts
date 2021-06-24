@@ -306,6 +306,7 @@ export class Player extends DelegatedEventTarget {
    * - With a single VMAP at the beginning
    */
   playAds(adsRequest: google.ima.AdsRequest) {
+    debugger;
     this.#ima.settings.setAutoPlayAdBreaks(true);
     this._requestAds(adsRequest);
     this.activate();
@@ -325,6 +326,7 @@ export class Player extends DelegatedEventTarget {
     adsRequest: google.ima.AdsRequest,
     startAdCallback: StartAdCallback
   ) {
+    debugger;
     this.#ima.settings.setAutoPlayAdBreaks(false);
     this._requestAds(adsRequest, startAdCallback);
   }

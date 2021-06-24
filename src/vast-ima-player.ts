@@ -306,7 +306,7 @@ export class Player extends DelegatedEventTarget {
    * - With a single VMAP at the beginning
    */
   playAds(adsRequest: google.ima.AdsRequest) {
-    debugger;
+    debugger
     this.#ima.settings.setAutoPlayAdBreaks(true);
     this._requestAds(adsRequest);
     this.activate();
@@ -326,7 +326,7 @@ export class Player extends DelegatedEventTarget {
     adsRequest: google.ima.AdsRequest,
     startAdCallback: StartAdCallback
   ) {
-    debugger;
+    debugger
     this.#ima.settings.setAutoPlayAdBreaks(false);
     this._requestAds(adsRequest, startAdCallback);
   }
@@ -341,6 +341,7 @@ export class Player extends DelegatedEventTarget {
       this.#mediaElement.currentTime = 0;
     }
     this.reset().then(() => {
+      debugger
       this.#startAdCallback = startAdCallback;
       adsRequest.linearAdSlotWidth = this.#width;
       adsRequest.linearAdSlotHeight = this.#height;
@@ -370,7 +371,13 @@ export class Player extends DelegatedEventTarget {
         this._onAdError(error);
       }, REQUEST_ADS_TIMEOUT);
 
-      this.#adsLoader.requestAds(adsRequest);
+      try {
+        this.#adsLoader.requestAds(adsRequest);
+      } catch (e) {
+        const error = new PlayerError(`error while request ads ${e.toString()}ms.`);
+        this._onAdError(error);
+      }
+
     });
   }
 
